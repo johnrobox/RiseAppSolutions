@@ -2,15 +2,16 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_blog extends CI_Migration {
+class Migration_Add_tables extends CI_Migration {
 
         public function up()
         {
-                $this->admin();
-                $this->about_us();
+                $this->adminUser();
+                $this->adminUserLogs();
+                $this->aboutUs();
                 $this->team();
-                $this->service_category();
-                $this->service_name();
+                $this->serviceCategory();
+                $this->serviceName();
                 $this->portfolio();
                 $this->blog();
                 $this->faq();
@@ -19,16 +20,23 @@ class Migration_Add_blog extends CI_Migration {
 
         public function down()
         {
-                $this->dbforge->drop_table('blog');
+                $this->dbforge->drop_table('admin_users');
+                $this->dbforge->drop_table('admin_user_logs');
+                $this->dbforge->drop_table('about_us');
+                $this->dbforge->drop_table('teams');
+                $this->dbforge->drop_table('service_categories');
+                $this->dbforge->drop_table('service_names');
+                $this->dbforge->drop_table('portfolios');
+                $this->dbforge->drop_table('blogs');
+                $this->dbforge->drop_table('faqs');
+                $this->dbforge->drop_table('inquiries');
         }
 
-        // Methods
-
         // Table for about_us
-        private function about_us()
+        private function aboutUs()
         {
                 $this->dbforge->add_field(array(
-                        'about_us_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -56,18 +64,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 1,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('about_us_id', TRUE);
+                $this->dbforge->add_key('id', TRUE);
                 $this->dbforge->create_table('about_us');
         }
 
-        // Table for team
+        // Table for teams
         private function team()
         {
                 $this->dbforge->add_field(array(
-                        'team_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -115,18 +124,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 1,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('team_id', TRUE);
-                $this->dbforge->create_table('team');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('teams');
         }
 
-        // Table for service_category
-        private function service_category()
+        // Table for service_categories
+        private function serviceCategory()
         {
                 $this->dbforge->add_field(array(
-                        'service_category_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -155,18 +165,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 1,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('service_category_id', TRUE);
-                $this->dbforge->create_table('service_category');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('service_categories');
         }
 
-        // Table for service_name
-        private function service_name()
+        // Table for service_names
+        private function serviceName()
         {
                 $this->dbforge->add_field(array(
-                        'service_name_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -199,18 +210,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 1,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('service_name_id', TRUE);
-                $this->dbforge->create_table('service_name');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('service_names');
         }
 
-        // Table for portfolio
+        // Table for portfolios
         private function portfolio()
         {
                 $this->dbforge->add_field(array(
-                        'portfolio_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -251,18 +263,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 1,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('portfolio_id', TRUE);
-                $this->dbforge->create_table('portfolio');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('portfolios');
         }
 
-        // Table for blog
+        // Table for blogs
         private function blog()
         {
                 $this->dbforge->add_field(array(
-                        'blog_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -290,18 +303,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 1,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('blog_id', TRUE);
-                $this->dbforge->create_table('blog');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('blogs');
         }
 
-        // Table for faq
+        // Table for faqs
         private function faq()
         {
                 $this->dbforge->add_field(array(
-                        'faq_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -333,18 +347,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 0,
+                                'comment' => '0-unread, 1-read'
                         )
                 ));
-                $this->dbforge->add_key('faq_id', TRUE);
-                $this->dbforge->create_table('faq');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('faqs');
         }
 
         // Table for inquiry
         private function inquiry()
         {
                 $this->dbforge->add_field(array(
-                        'inquiry_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -375,18 +390,19 @@ class Migration_Add_blog extends CI_Migration {
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 1,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('inquiry_id', TRUE);
-                $this->dbforge->create_table('inquiry');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('inquiries');
         }
 
-        // Table for admin
-        private function admin()
+        // Table for admin_users
+        private function adminUser()
         {
                 $this->dbforge->add_field(array(
-                        'admin_id' => array(
+                        'id' => array(
                                 'type' => 'INT', 
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
@@ -415,6 +431,22 @@ class Migration_Add_blog extends CI_Migration {
                                 'type' => 'VARCHAR',
                                 'constraint' => 50, 
                                 'null' => TRUE
+                        )
+                ));
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('admin_users');
+        }
+
+        // Table for admin_user_logs
+        private function adminUserLogs() {
+                $this->dbforge->add_field(array(
+                        'id' => array(
+                                'type' => 'INT', 
+                                'unsigned' => TRUE,
+                                'auto_increment' => TRUE
+                        ), 
+                        'admin_user_id' => array(
+                                'type' => 'INT'
                         ),  
                         'date_created' => array(
                                 'type' => 'DATETIME',
@@ -431,15 +463,25 @@ class Migration_Add_blog extends CI_Migration {
                         'modified_by' => array(
                                 'type' => 'INT', 
                                 'null' => TRUE
-                        ), 
+                        ),
+                        'last_login' => array(
+                                'type' => 'DATETIME',
+                                'null' => TRUE
+                        ),
+                        'last_logout' => array(
+                                'type' => 'DATETIME',
+                                'null' => TRUE
+                        ),
                         'status' => array(
                                 'type' => 'TINYINT',
                                 'constraint' => 1,
-                                'default' => 0
+                                'default' => 0,
+                                'comment' => '0-disable, 1-enable'
                         )
                 ));
-                $this->dbforge->add_key('admin_id', TRUE);
-                $this->dbforge->create_table('admin');
+                $this->dbforge->add_key('id', TRUE);
+                $this->dbforge->create_table('admin_user_logs');
         }
+
 }
 
