@@ -1,11 +1,8 @@
 <?php
-
 /*
-* Admin User Model
-* Author : JhayR
-* Date : August 7, 2016
+* Blog
+* Database Table : admin_users
 */
-
 class AdminUser extends CI_Model {
 
 	public function __construct() {
