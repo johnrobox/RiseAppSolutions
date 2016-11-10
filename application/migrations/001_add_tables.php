@@ -448,6 +448,11 @@ class Migration_Add_tables extends CI_Migration {
                         'admin_user_id' => array(
                                 'type' => 'INT'
                         ),  
+                        'admin_token' => array(
+                                'type' => 'VARCHAR',
+                                'constraint' => 188, 
+                                'null' => TRUE
+                        ),
                         'date_created' => array(
                                 'type' => 'DATETIME',
                                 'null' => TRUE

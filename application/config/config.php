@@ -23,7 +23,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/RiseAppSolutions/';
+
+// # DEVELOPERS MIGHT SUBJECT TO CHANGE THIS SETTINGS
+// 1 = normal local workspace
+// 2 = Robert's office workspace
+// 3 = Robert's home workspace
+$url = 2;
+
+switch ($url) {
+	case 1:
+		$base_url = 'http://localhost/RiseAppSolutions/';
+		break;
+	case 2:
+		$base_url = 'http://practice.com/riseappsolutions/';
+		break;
+    case 3:
+    	$base_url = 'http://riseappsolutions.dev/';
+	default:
+		$base_url = 'no_base_url';
+		# code...
+		break;
+}
+
+$config['base_url'] = $base_url;
 
 /*
 |--------------------------------------------------------------------------
