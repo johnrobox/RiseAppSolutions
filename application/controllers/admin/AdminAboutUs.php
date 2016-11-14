@@ -9,15 +9,15 @@
 	    }
 
 
-	    public function about_us(){
+	    public function aboutUs(){
 	    	$this->load->view('admin/template/header');
 	    	$this->load->view('admin/template/sidebar');
-	    		$data['get_all_about_us'] = $this->AboutUs->get_all_about_us();
+	    		$data['get_all_about_us'] = $this->AboutUs->getAllAboutUs();
 	    	$this->load->view('admin/content/AboutUs/content',$data);
 	    	$this->load->view('admin/template/footer');
 	    }
 
-	    public function update_about_us(){ 
+	    public function updateAboutUs(){ 
 	    	$newData = array(
                 array(
                 	'field' =>  'about_us_content',
@@ -39,7 +39,7 @@
             }else{
                 $id = $this->input->post('about_us_id'); 
                 $content = $this->input->post('about_us_content'); 
-                $this->AboutUs->update_about_us($id, $content);
+                $this->AboutUs->updateAboutUs($id, $content);
             }
 	    }
 

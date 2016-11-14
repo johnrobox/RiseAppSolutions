@@ -7,14 +7,14 @@
 	        parent::__construct(); 	    
 	    }
 	    
-	    public function get_all_about_us(){
+	    public function getAllAboutUs(){
             $this->db->select('*');
             $this->db->from('about_us');
             $get_all_about_us = $this->db->get();
             return $get_all_about_us->result(); 
 	    }
 
-	    public function update_about_us($id, $content ){
+	    public function updateAboutUs($id, $content ){
 	    	$newData = array(
 	    		'about_us_content' => $content,
 	    		'date_modified' => time() //to be change to Datetime 
