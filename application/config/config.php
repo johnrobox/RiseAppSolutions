@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // 1 = normal local workspace
 // 2 = Robert's office workspace
 // 3 = Robert's home workspace
-$url = 2;
+$url = 1;
 
 switch ($url) {
 	case 1:
