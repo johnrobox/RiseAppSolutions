@@ -18,8 +18,18 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	public function __construct() {
+		parent::__construct();
+		$this->load->library('BootstrapAlert');
+	}
 	public function index()
 	{
+		$this->session->set_flashdata('success',$this->bootstrapalert->success('Success'));
+		$this->session->set_flashdata('info',$this->bootstrapalert->info('Info'));
+		$this->session->set_flashdata('warning',$this->bootstrapalert->warning('Warning'));
+		$this->session->set_flashdata('danger',$this->bootstrapalert->danger('Danger'));
+		
 		$this->load->view('welcome_message');
 	}
 }
