@@ -373,6 +373,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Blank</h1>
+                        <?php
+                        echo $this->session->flashdata('success');
+                        echo $this->session->flashdata('info');
+                        echo $this->session->flashdata('warning');
+                        echo $this->session->flashdata('danger');
+                        ?>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
