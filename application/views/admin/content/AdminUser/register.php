@@ -1,5 +1,5 @@
 
-      
+                <h1>About Rise App Solutions</h1>
 
                 <?php echo form_open(base_url().'update-about-us');
                     foreach ($get_all_about_us as $about_us){ 
