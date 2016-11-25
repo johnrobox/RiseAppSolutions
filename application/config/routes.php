@@ -51,9 +51,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // About Us
-$route['admin/about-us'] = 'admin/AdminAboutUs/about_us'; 
-$route['update-about-us'] = 'admin/AdminAboutUs/update_about_us'; 
+$route['admin/about-us'] = 'admin/AdminAboutUs/aboutUs'; 
+$route['admin/update-about-us'] = 'admin/AdminAboutUs/updateAboutUs'; 
 
+// Faqs
+$route['admin/faqs'] = 'admin/AdminFaqs/faqs_content';
 
 
 
