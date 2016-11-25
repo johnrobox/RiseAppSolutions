@@ -1,5 +1,3 @@
-
-      
 <?php echo form_open(base_url().'update-about-us');
     foreach ($get_all_about_us as $about_us){ 
 ?>
@@ -16,5 +14,5 @@
             <button type="submit" class="btn btn-default">Update</button>
         </div>
     </div> 
-<?php }echo form_close();?> </form>
+<?php } echo form_close(); ?>
 

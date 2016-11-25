@@ -9,27 +9,37 @@
 	    }
 
 
-	    public function about_us(){
+	    public function aboutUs(){
 	    	$this->load->view('admin/template/header');
 	    	$this->load->view('admin/template/sidebar');
-	    		$data['get_all_about_us'] = $this->AboutUs->get_all_about_us();
+	    		$data['get_all_about_us'] = $this->AboutUs->getAllAboutUs();
 	    	$this->load->view('admin/content/AboutUs/content',$data);
 	    	$this->load->view('admin/template/footer');
 	    }
 
-	    public function update_about_us(){ 
+	    public function updateAboutUs(){ 
 	    	$newData = array(
-                'field' =>  'about_us_content',
-                'label' =>  'Content',
-                'rules' =>  'trequired'
+                array(
+                	'field' =>  'about_us_content',
+	                'label' =>  'Content',
+	                'rules' =>  'required|trim'
+                	)
 	    	);
             $this->form_validation->set_rules($newData);
             if($this->form_validation->run()==FALSE){
-                $this->update_about_us();
+
+                    $this->session->set_flashdata('error_updating_about_us_alert-message',
+                        '<div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>Controller error on updating about us.
+                        </div>
+                        ');    
+                redirect(base_url().'admin/about-us');
+
             }else{
-                $about_us_id = $this->input->post('about_us_id'); 
-                $about_us_content = $this->input->post('about_us_content'); 
-                $this->AboutUs->update_about_us($about_us_content, $about_us_id);
+                $id = $this->input->post('about_us_id'); 
+                $content = $this->input->post('about_us_content'); 
+                $this->AboutUs->updateAboutUs($id, $content);
             }
 	    }
 
