@@ -7,84 +7,34 @@
 
 class AdminUserController extends CI_Controller {
 	
-	public function __construct() {
-		parent::__construct();
-		$this->load->model('AdminUser');
-		//$this->load->library('alert');
-                $this->js =  array(
-                    'admin.users'
-                );
-	}
+    public function __construct() {
+            parent::__construct();
+            $this->load->model('AdminUser');
+            //$this->load->library('alert');
+            $this->js =  array(
+                'admin.users'
+            );
+    }
 
-	/*
-	* Register
-	* @param
-	* @return void
-	*/
-	public function index() {
-            $data = array(
-                    'content_title' => 'Admin Users Panel',
-                    'script' => $this->js,
-                    'pageTitle' => 'Admin Registration',
-                    'fields' => array(
-				'firstname' => array(
-					'type' => 'text',
-					'name' => 'admin_firstname',
-					'class' => 'form-control',
-					'placeholder' => 'Firstname',
-					'autofocus' => ''
-					),
-				'lastname' => array(
-					'type' => 'text',
-					'name' => 'admin_lastname',
-					'class' => 'form-control',
-					'placeholder' => 'Lastname'
-					),
-				'username' => array(
-					'type' => 'text',
-					'name' => 'admin_username',
-					'class' => 'form-control',
-					'placeholder' => 'Username'
-					),
-				'password' => array(
-					'type' => 'password',
-					'name' => 'admin_password',
-					'class' => 'form-control',
-					'placeholder' => 'Password'
-					)
-            ),
-			'select' => array(
-                'gender' => array(
-                    "" => 'Select Gender',
-                    1 => 'Male',
-                    2 => 'Female'
-                	)
-            	),
-			'button' => array(
-                'submit' => array(
-                	'type' => 'submit',
-                	'class' => 'btn btn-primary',
-                	'name' => 'submit',
-                	'value' => 'save'
-                	),
-
-                'reset' => array(
-                	'type' => 'reset',
-                	'class' => 'btn btn-warning',
-                	'name' => 'reset',
-                	'value' => 'reset'
-                	)
-                )
-			);
-
+    /*
+    * Register
+    * @param
+    * @return void
+    */
+    public function index() {
+        $data = array(
+            'content_title' => 'Admin Users Panel',
+            'script' => $this->js,
+            'pageTitle' => 'Admin Registration'
+            );
         $this->load->view('admin/template/header', $data);
         $this->load->view('admin/template/sidebar');
         $this->load->view('admin/content/AdminUser/content');
         $this->load->view('admin/modals/register-admin-user');
         $this->load->view('admin/template/footer');
-	}
+    }
 
-        public function register_execs() {
+        public function register_exec() {
             $validate = array(
                 array(
                     'field' => 'admin_firstname',
@@ -128,7 +78,7 @@ class AdminUserController extends CI_Controller {
             }
         }
         
-	public function register_exec() {
+	public function register_execs() {
     
         
         $this->form_validation->set_rules($validate);
