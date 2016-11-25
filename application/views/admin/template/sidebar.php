@@ -29,6 +29,9 @@
                 <li>
                     <a href="#">Inquiry</a>
                 </li>
+                <li>
+                    <a href="<?php echo base_url(); ?>index.php/admin/AdminUserController/">Admin User</a>
+                </li>
                 <hr>
                 <li>
                     <a href="#">Sign Out</a>
@@ -36,3 +39,15 @@
             </ul>
         </div>
         <!-- /#sidebar-wrapper --> 
+
+        <!-- Page Content -->
+<div id="page-content-wrapper">
+<a href="#menu-toggle" id="menu-toggle">
+    <i class="fa fa-bars fa-3x" aria-hidden="true"></i>
+</a>
+<!-- Important! Do not Delete -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+            <h1><?php echo (isset($content_title)) ? $content_title : 'Panel';?></h1>
