@@ -3,6 +3,7 @@
 
 <?php echo $this->session->flashdata('success'); ?>
 <?php echo $this->session->flashdata('error'); ?>
+<div class="inquiryCommonError text-error"></div>
 <?php if ($inquiries) { ?>
 <table class="table table-hovered table-bordered">
     <tr>
@@ -14,16 +15,23 @@
         <th>Actions</th>
     </tr>
     <?php foreach ($inquiries as $inquiry) { ?>
-    <tr>
+    <?php $id = $inquiry->id; ?>
+    <tr class="<?php echo ($inquiry->status) ? 'white-bg' : 'eee-bg';?>" id="inquiryTr<?php echo $id; ?>">
         <td><?php echo ucfirst(ucwords($inquiry->inquiry_firstname));?></td>
         <td><?php echo ucfirst(ucwords($inquiry->inquiry_lastname));?></td>
         <td><?php echo $inquiry->inquiry_email;?></td>
         <td><?php echo $inquiry->inquiry_content;?></td>
         <td><?php echo $inquiry->inquiry_date_submitted;?></td>
         <td>
-            <button class="btn btn-danger btn-xs deleteInquiryButton" value="<?php echo $inquiry->id;?>">Delete</button>
-            <button class="btn btn-primary btn-xs showInquiryButton" value="<?php echo $inquiry->id;?>">Show</button>
-            <button class="btn btn-primary btn-xs">mark as unread</button>
+            <button class="btn btn-danger btn-xs deleteInquiryButton btn-fixed-one" value="<?php echo $id; ?>">Delete</button>
+            <button class="btn btn-primary btn-xs showInquiryButton btn-fixed-one" value="<?php echo $id; ?>">Show</button>
+            <br>
+            <button class="btn btn-xs <?php echo ($inquiry->status) ? "btn-success" : " btn-warning";?> btn-fixed-one markInquiryButton " id="markInquiry<?php echo $id;?>" status="<?php echo $inquiry->status;?>" value="<?php echo $id; ?>">
+                <span id="markText<?php echo $id;?>">
+                    <?php echo ($inquiry->status) ? "Mark as Unread" : " Mark as Read";?>
+                </span>
+                <img src="<?php echo base_url();?>images/admin/loading/loading8.gif" id="markLoadingImage<?php echo $id;?>" class="img-responsive loading-image center-block" style="height: 20px; width: 20px; display: none;"/>
+            </button>
         </td>
     </tr>
     <?php } ?>

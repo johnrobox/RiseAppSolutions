@@ -50,9 +50,25 @@ class AdminInquiryController extends CI_Controller {
     public function showInquiry(){
         // sanitize inquiry id
         $id = $this->input->post('id');
-        $result = $this->Inquiry->getInquiryById($id);
+        $state = $this->input->post('state');
+        if ($state == 0) {
+            $result = $this->Inquiry->getInquiryById($id);
+        } else if ($state == 1) {
+            $result = $this->Inquiry->findPreviousNextById($id, "max", "<");
+            $result['previous'] = $this->Inquiry->getFirstLastId("min");
+        } else if ($state == 2) {
+            $result = $this->Inquiry->findPreviousNextById($id, "min", ">");
+            $result['next'] = $this->Inquiry->getFirstLastId("max");
+        } 
         echo json_encode($result);
     }
     
+    public function changeStatus() {
+        $id = $this->input->post('id');
+        $status = $this->input->post('status');
+        $status = ($status) ? 0 : 1;
+        $result = $this->Inquiry->changeStatusById($id, $status);
+        echo json_encode($result);
+    } 
     
 }

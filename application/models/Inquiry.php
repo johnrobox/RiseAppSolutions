@@ -23,15 +23,31 @@ class Inquiry extends CI_Model {
     }
     
     public function getInquiryById($id) {
-        $query = $this->db->query("SELECT inquiry_firstname, "
-                . "inquiry_lastname, "
-                . "inquiry_email, "
-                . "inquiry_content, "
-                . "inquiry_date_submitted FROM "
-                .$this->table." WHERE id=".$id);
+        $this->db->where('id', $id);
+        $query = $this->db->get($this->table);
         $result['select'] = ($this->db->affected_rows() > 0 ) ? true : false;
         $result['inquiry'] = $query->result();
         return $result;
+    }
+    
+    public function findPreviousNextById($id, $states, $operator) {
+       // $states = "max";
+        $query = $this->db->query("select * from ".$this->table." where id = (select $states(id) from ".$this->table." where id ".$operator." ".$id.")");
+        $result['select'] = ($this->db->affected_rows() > 0 ) ? true : false;
+        $result['inquiry'] = $query->result();
+        return $result;
+    }
+    
+    public function getFirstLastId($states){
+        $query = $this->db->query("SELECT id FROM ".$this->table." WHERE id=(SELECT ".$states."(id) FROM ".$this->table.")");
+        $row = $query->row();
+        return $row->id;
+    }
+    
+    public function changeStatusById($id, $status) {
+        $this->db->where('id', $id);
+        $this->db->update($this->table, array('status' => $status));
+        return ($this->db->affected_rows()) ? true : false;
     }
         
 }

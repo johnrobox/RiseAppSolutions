@@ -11,6 +11,8 @@
 
     <title><?php echo (isset($pageTitle)) ? $pageTitle : 'Administrator'; ?></title>
 
+    <link href="<?php echo base_url(); ?>css/admin.style.css" rel="stylesheet">
+    
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet"> 
     
