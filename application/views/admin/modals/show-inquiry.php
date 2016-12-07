@@ -6,6 +6,7 @@
                 <div class="noDataSelected"></div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <button class="btn btn-xs btn-default" id="markInquiryButtonInModal" value="" status=""></button>
+                <button class="btn btn-xs btn-danger" id="deleteInquiryButtonInModal" value="">Delete</button>
             </div>
             <div class="modal-body">
                 <img src="<?php echo base_url();?>images/admin/loading/loading6.svg" class="img-responsive loading-image center-block inquiryLoadingImage" style="height: 30px; width: 30px;"/>
@@ -28,7 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label>Text</label>
-                    <textarea type="text" class="form-control inquiryText" disabled=""></textarea>
+                    <textarea type="text" class="form-control inquiryText" disabled="" rows="8"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

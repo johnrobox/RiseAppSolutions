@@ -18,35 +18,142 @@ $(document).ready(function(){
     var inqDateField = $('.inquiryDate');
     
     var markInquiryInModal = $('#markInquiryButtonInModal');
+    var deleteInquiryInModal = $('#deleteInquiryButtonInModal');
+    var replyInquiryModal = $('#replyInquiryModal');
     
     var nextAndPrevButtonInModal = $('.nextAndPrevButtonInModal');
     
+    
+    var replyInquiryButton = $('.replyInquiryButton');
+    
+    // for email
+    var emailFrom = $("#emailFrom");
+    var emailTo = $("#emailTo");
+    var emailSubject = $("#emailSubject");
+    var emailMessage = $("#emailMessage");
+    
+    var emailToError = $("#emailToError");
+    var emailFromError = $("#emailFromError");
+    var emailSubjectError = $("#emailSubjectError");
+    var emailMessageError = $("#emailMessageError");
+    
+    var successAlert = $('#successAlert');
+    successAlert.hide();
+    
+    var replyInquirySuccessAlert = $("#replyInquirySuccessAlert");
+    replyInquirySuccessAlert.hide();
+    
+    // Delete Modal 
+    var deleteInquiryModal = $("#deleteInquiryModal");
+    
     $('.deleteInquiryButton').click(function(){
         inquiry_id = this.getAttribute("value");
-        $('#deleteInquiryModal').modal('show');
+        deleteInquiryModal.modal('show');
+        loadingImage.hide();
+    });
+    
+    /***************************
+     *  REPLY BUTTON
+     ***************************/
+    replyInquiryButton.click(function(){
+        loadingImage.hide();
+        emailToError.text('');
+        emailFromError.text('');
+        emailSubjectError.text('');
+        emailMessageError.text('');
+        
+        replyInquiryModal.modal('show');
+        
+        var email_to = this.getAttribute("email");
+        
+        emailFrom.val("riseappsolutions@gmail.com");
+        emailTo.val(email_to);
+        
+    });
+    
+    
+    /****************************
+     * SUBMIT REPLY BUTTON 
+     ***************************/
+    $("#submitReplyButtonInModal").click(function(){
+        loadingImage.hide();
+        emailToError.text('');
+        emailFromError.text('');
+        emailSubjectError.text('');
+        emailMessageError.text('');
+        
+        loadingImage.show();
+        var dataString = $('#replyInquiryForm').serialize();
+        $.ajax({
+            type: "POST",
+            url: "replyInquiry",
+            data: dataString,
+            dataType: "json",
+            success: function(data) {
+                if (data.error == true){
+                    var msg = data.messages;
+                    for(var i in msg){
+                        var tx = msg[i];
+                        if(i == 'email_to') 
+                            emailToError.text(tx);
+                        if(i == 'email_from')
+                            emailFromError.text(tx);
+                        if(i == 'email_subject')
+                            emailSubjectError.text(tx);
+                        if(i == 'email_message')
+                            emailMessageError.text(tx);
+                    }
+                } else {
+                    emailSubject.val('');
+                    emailMessage.val('');
+                    replyInquirySuccessAlert.text("Message successfully sent!");
+                    replyInquirySuccessAlert.fadeIn();
+                    replyInquirySuccessAlert.fadeOut(4000, 'linear');
+                }
+                loadingImage.hide();
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+    
+    /***************************
+     * DELETE INQUIRY IN MODAL
+     ***************************/
+    deleteInquiryInModal.click(function(){
+        inquiry_id = this.getAttribute("value");
+         // show inquiry modal
+        $('#showInquiryModal').modal('hide');
+        deleteInquiryModal.modal('show');
         loadingImage.hide();
     });
     
     $('#confirmDeleteInquiryButton').click(function(){
         loadingImage.show();
         $.ajax({
-                type: "POST",
-                url: "deleteInquiry",
-                data: {
-                    id : inquiry_id
-                },
-                success: function() {
-                    location.reload();
-                },
-                error: function() {
-                }
+            type: "POST",
+            url: "deleteInquiry",
+            data: {
+                id : inquiry_id
+            },
+            success: function() {
+                deleteInquiryModal.modal("hide");
+                $("#inquiryTr"+inquiry_id).hide();
+                successAlert.text("Inquiry item successfully deleted!");
+                successAlert.fadeIn('slow');
+                successAlert.fadeOut(4000, 'linear');
+                //location.reload();
+            },
+            error: function() {
+            }
         });
     });
     
     
-    /*******************
-     * SHOW INQUIRY MODAL 
-     ******************/
+    /****************************
+     *SHOW INQUIRY MODAL 
+     ****************************/
     $('.showInquiryButton').click(function(){
         
         //empty all field
@@ -57,6 +164,7 @@ $(document).ready(function(){
         inqTextField.val('');
         
         markInquiryInModal.hide();
+        deleteInquiryInModal.hide();
         alertInModal.hide();
         
         // sanitize inquiry ID
@@ -72,11 +180,22 @@ $(document).ready(function(){
             console.log(data);
             // hide image loading 
             loadingImage.hide();
+            
+            if (data.next == data.inquiry[0].id)
+                $("#nextButtonInModal").hide();
+            else 
+                $("#nextButtonInModal").show();
+            
+            if (data.previous == data.inquiry[0].id) 
+                $("#previousButtonInModal").hide();
+            else 
+                $("#previousButtonInModal").show();
 
             // check if data is successfully queried
             if (data.select){
                 
                 markInquiryInModal.show();
+                deleteInquiryInModal.show();
                 var inq = data.inquiry[0];
                 //console.log(inq);
                 // assign value to the field (ready to show data)
@@ -107,6 +226,7 @@ $(document).ready(function(){
                 markInquiryInModal.attr("status", inq.status);
                 markInquiryInModal.attr("value", inq.id);
                 nextAndPrevButtonInModal.attr("value", inq.id);
+                deleteInquiryInModal.attr("value", inq.id);
             } else {
                 // if no data queried ( query field )
                 $('.noDataSelected').html("<span style='color: red;'>Cannot load data / no data selected!</span>");
@@ -116,7 +236,6 @@ $(document).ready(function(){
     });
     
     
-    // http://stackoverflow.com/questions/1446821/how-to-get-next-previous-record-in-mysql
     
     /**********************
      * INQUIRY NEXT AND PREVIOUS BUTTON
@@ -125,13 +244,12 @@ $(document).ready(function(){
         inquiry_id = this.getAttribute("value");
         var state = this.getAttribute("state");
         var request = '';
-        if (state == "previous") {
+        if (state == "previous") 
             request = 1;
-        } else if (state == "next"){
+        else if (state == "next")
             request = 2;
-        } else{
+        else
             request = 0;
-        }
         
         //empty all field
         inqFirstnameField.val('');
@@ -141,9 +259,9 @@ $(document).ready(function(){
         inqTextField.val('');
         
         markInquiryInModal.hide();
+        deleteInquiryInModal.hide();
         alertInModal.hide();
-        
-        
+                
         // show inquiry modal
         $('#showInquiryModal').modal('show');
         
@@ -155,19 +273,20 @@ $(document).ready(function(){
             // hide image loading 
             loadingImage.hide();
             
-            if (data.next == data.inquiry[0].id){
+            if (data.next == data.inquiry[0].id)
                 $("#nextButtonInModal").hide();
-            } else {
+            else 
                 $("#nextButtonInModal").show();
-            }
-            if (data.previous == data.inquiry[0].id) {
+            
+            if (data.previous == data.inquiry[0].id) 
                 $("#previousButtonInModal").hide();
-            } else {
+            else 
                 $("#previousButtonInModal").show();
-            }
+            
             // check if data is successfully queried
             if (data.select){
                 markInquiryInModal.show();
+                deleteInquiryInModal.show();
                 var inq = data.inquiry[0];
                 console.log(inq);
                 // assign value to the field (ready to show data)
@@ -198,6 +317,7 @@ $(document).ready(function(){
                 markInquiryInModal.attr("status", inq.status);
                 markInquiryInModal.attr("value", inq.id);
                 nextAndPrevButtonInModal.attr("value", inq.id);
+                deleteInquiryInModal.attr("value", inq.id);
             } else {
                 // if no data queried ( query field )
                 $('.noDataSelected').html("<span style='color: red;'>Cannot load data / no data selected!</span>");
