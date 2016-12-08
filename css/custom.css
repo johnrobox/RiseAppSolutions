@@ -1,3 +1,11 @@
 .text-error { 
 	color : red;
 }
+
+.white-bg {
+    background-color: white;
+}
+
+.eee-bg {
+    background-color: #eee;
+}

@@ -27,7 +27,7 @@
                     <a href="<?php echo base_url().'admin/faqs'; ?>">FAQS</a>
                 </li>
                 <li>
-                    <a href="#">Inquiry</a>
+                    <a href="<?php echo base_url(); ?>index.php/admin/AdminInquiryController/">Inquiry</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>index.php/admin/AdminUserController/">Admin User</a>
