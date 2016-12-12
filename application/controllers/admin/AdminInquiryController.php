@@ -12,6 +12,7 @@ class AdminInquiryController extends CI_Controller {
         parent::__construct();
         $this->load->model('Inquiry');
         $this->load->library('bootstrapalert');
+        $this->load->library('pluginlink');
         $this->js = array(
             'admin.inquiry'
         );
@@ -21,7 +22,8 @@ class AdminInquiryController extends CI_Controller {
         $data = array(
             'content_title' => 'Inquiries',
             'inquiries' => $this->Inquiry->getAllInquiries(),
-            'script' => $this->js
+            'script' => $this->js,
+            'plugin' => $this->pluginlink->dataTable()
         );
         
         $this->load->view('admin/template/header', $data);
