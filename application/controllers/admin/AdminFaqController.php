@@ -29,7 +29,7 @@ class AdminFaqController extends CI_Controller {
         
         $this->load->view('admin/template/header', $data);
         $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/content/Faq/content');
+        $this->load->view('admin/content/faq/content');
         $this->load->view('admin/modals/faq/add-item');
         $this->load->view('admin/modals/faq/show-item');
         $this->load->view('admin/template/footer');
