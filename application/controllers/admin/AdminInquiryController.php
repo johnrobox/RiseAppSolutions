@@ -28,10 +28,10 @@ class AdminInquiryController extends CI_Controller {
         
         $this->load->view('admin/template/header', $data);
         $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/content/Inquiry/content');
-        $this->load->view('admin/modals/delete-inquiry');
-        $this->load->view('admin/modals/show-inquiry');
-        $this->load->view('admin/modals/reply-inquiry');
+        $this->load->view('admin/content/inquiry/content');
+        $this->load->view('admin/modals/inquiry/delete-inquiry');
+        $this->load->view('admin/modals/inquiry/show-inquiry');
+        $this->load->view('admin/modals/inquiry/reply-inquiry');
         $this->load->view('admin/template/footer');
     }
     
