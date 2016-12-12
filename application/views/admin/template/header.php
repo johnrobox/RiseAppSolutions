@@ -39,6 +39,26 @@
         }
     }
     ?>
+        
+    <?php
+    /***************************
+     * PLUGIN USE IN PAGE 
+     ***************************/
+    if (isset($plugin)) {
+        if (isset($plugin['css'])){
+            foreach($plugin['css'] as $css_link) { ?>
+               <link rel="stylesheet" href="<?php echo base_url().$css_link;?>.css"> 
+    <?php
+            }
+        }
+        if (isset($plugin['js'])) {
+            foreach($plugin['js'] as $js_link) { ?>
+                <script src="<?php echo base_url().$js_link;?>.js"></script>
+    <?php    
+            }
+        }
+    }
+    ?>
 
 </head>
 

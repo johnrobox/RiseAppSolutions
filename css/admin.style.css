@@ -12,13 +12,13 @@ and open the template in the editor.
 .text-error { 
 	color : red;
 }
-u 
+
 .white-bg {
     background-color: white;
 }
 
 .eee-bg {
-    background-color: skyblue;
+    background-color: #F6F4F4;
 }
 
 .btn-fixed-one {
