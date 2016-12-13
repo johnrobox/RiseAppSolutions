@@ -32,6 +32,8 @@ class AdminFaqController extends CI_Controller {
         $this->load->view('admin/content/faq/content');
         $this->load->view('admin/modals/faq/add-item');
         $this->load->view('admin/modals/faq/show-item');
+        $this->load->view('admin/modals/faq/delete-item');
+        $this->load->view('admin/modals/faq/update-item');
         $this->load->view('admin/template/footer');
     }
     
@@ -85,6 +87,57 @@ class AdminFaqController extends CI_Controller {
             $result['next'] = $next;
         } 
         echo json_encode($result);
+    }
+    
+    public function deleteFaq() {
+        $id = $this->input->post('id');
+        $result = $this->Faq->deleteFaqById($id);
+        echo json_encode($result);
+    }
+    
+    public function changeStatus() {
+        $id = $this->input->post("id");
+        $status = $this->input->post("status");
+        $status = ($status) ? 0 : 1;
+        $result = $this->Faq->changeStatusById($id, $status);
+        echo json_encode($result);
+    }
+    
+    public function updateFaqItem() {
+        $validate = array(
+            array(
+                'field' => 'question',
+                'label' => 'Question',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'answer',
+                'label' => 'Answer',
+                'rules' => 'trim|required'
+            )
+        );
+        $this->form_validation->set_rules($validate);
+        if ($this->form_validation->run() == false) {
+            $response = array(
+                'error' => true,
+                'messages' => $this->form_validation->error_array()
+            );
+        } else {
+            $id = $this->input->post('id');
+            $question = $this->input->post('question');
+            $answer = $this->input->post('answer');
+            date_default_timezone_set("Asia/Manila");
+            $data = array(
+                'faq_question' => $question,
+                'faq_answer' => $answer,
+                'date_modified' => date('Y-m-d h:i:s'),
+                'modified_by' => 2
+            );
+            $result = $this->Faq->updateById($id, $data);
+            $this->session->set_flashdata("success", $this->bootstrapalert->success("FAQ successfully updated!"));
+            $response['error'] = ($result) ? false : true;
+        }
+        echo json_encode($response);
     }
     
 }

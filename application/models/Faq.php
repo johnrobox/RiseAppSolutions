@@ -63,5 +63,23 @@ class Faq extends CI_Model {
         $row = $query->row();
         return $row->id;
     }
+    
+    public function deleteFaqById($id) {
+        $this->db->where('id', $id);
+        $this->db->delete($this->table);
+        return ($this->db->affected_rows() > 0 ) ? true : false;
+    }
+    
+    public function changeStatusById($id, $status) {
+        $this->db->where('id', $id);
+        $this->db->update($this->table, array('status' => $status));
+        return ($this->db->affected_rows() > 0 ) ? true : false;
+    }
+    
+    public function updateById($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update($this->table, $data);
+        return ($this->db->affected_rows() > 0 ) ? true : false;
+    }
 
 }
