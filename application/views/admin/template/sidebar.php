@@ -24,7 +24,7 @@
                     <a href="#">Blog</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url().'admin/faqs'; ?>">FAQS</a>
+                    <a href="<?php echo base_url(); ?>index.php/admin/AdminFaqController/">FAQS</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>index.php/admin/AdminInquiryController/">Inquiry</a>
