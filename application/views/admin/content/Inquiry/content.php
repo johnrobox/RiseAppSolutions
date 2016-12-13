@@ -37,7 +37,9 @@
             </td>
             <td><?php echo $inquiry->inquiry_date_submitted;?></td>
             <td>
-                <button class="btn btn-danger btn-xs deleteInquiryButton btn-fixed-one" value="<?php echo $id; ?>">Delete</button>
+                <button class="btn btn-danger btn-xs deleteInquiryButton btn-fixed-one" value="<?php echo $id; ?>">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
                 <button class="btn btn-primary btn-xs showInquiryButton btn-fixed-one" value="<?php echo $id; ?>">Show</button>
                 <br>
                 <button class="btn btn-xs <?php echo ($inquiry->status) ? "btn-success" : " btn-warning";?> btn-fixed-one markInquiryButton " id="markInquiry<?php echo $id;?>" status="<?php echo $inquiry->status;?>" value="<?php echo $id; ?>">
