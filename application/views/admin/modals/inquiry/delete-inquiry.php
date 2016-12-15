@@ -10,8 +10,23 @@
                 Delete this item ?
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id="confirmDeleteInquiryButton">Okay</button>
+                <?php 
+                // close button
+                $close_button = array(
+                    'class' => 'btn btn-default',
+                    'data-dismiss' => 'modal',
+                    'content' => 'Close'
+                );
+                echo form_button($close_button);
+                
+                // submit button
+                $confirm_deletion_button = array(
+                    'class' => 'btn btn-primary',
+                    'id' => 'confirmDeleteInquiryButton',
+                    'content' => 'Delete'
+                );
+                echo form_button($confirm_deletion_button);
+                ?>
             </div>
         </div>
     </div>

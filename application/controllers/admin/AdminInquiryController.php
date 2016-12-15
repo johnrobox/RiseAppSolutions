@@ -1,13 +1,12 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Admin Inquiry Controller
  */
 
 class AdminInquiryController extends CI_Controller {
     
+    // construct
     public function __construct() {
         parent::__construct();
         $this->load->model('Inquiry');
@@ -18,7 +17,14 @@ class AdminInquiryController extends CI_Controller {
         );
     }
     
+    /**
+     * index view of inquiry
+     * @param 
+     * @return void
+     */
     public function index() {
+        
+        // consturct data in array to view
         $data = array(
             'content_title' => 'Inquiries',
             'inquiries' => $this->Inquiry->getAllInquiries(),
@@ -35,32 +41,58 @@ class AdminInquiryController extends CI_Controller {
         $this->load->view('admin/template/footer');
     }
     
+    /**
+     * Delete inquiry
+     * @param 
+     * @return void 
+     */
     public function deleteInquiry() {
         // sanitize inquiry id
         $id = $this->input->post('id');
         $this->Inquiry->deleteById($id);
     }
     
+    /**
+     * Show single inquiry
+     * @param 
+     * @return json 
+     */
     public function showInquiry() {
+        
         // sanitize inquiry id
         $id = $this->input->post('id');
         $state = $this->input->post('state');
+        
+        // get minimum id
         $previous = $this->Inquiry->getFirstLastId("min");
+        // get maximum id
         $next = $this->Inquiry->getFirstLastId("max");
-        if ($state == 0) {
-            $result = $this->Inquiry->getInquiryById($id);
-            $result['previous'] = $previous;
-            $result['next'] = $next;
-        } else if ($state == 1) {
-            $result = $this->Inquiry->findPreviousNextById($id, "max", "<");
-            $result['previous'] = $previous;
-        } else if ($state == 2) {
-            $result = $this->Inquiry->findPreviousNextById($id, "min", ">");
-            $result['next'] = $next;
+        
+        switch ($state) {
+            case 0:
+                $result = $this->Inquiry->getInquiryById($id);
+                $result['previous'] = $previous;
+                $result['next'] = $next;
+                break;
+            case 1:
+                $result = $this->Inquiry->findPreviousNextById($id, "max", "<");
+                $result['previous'] = $previous;
+                break;
+            case 2:
+                $result = $this->Inquiry->findPreviousNextById($id, "min", ">");
+                $result['next'] = $next;
+                break;
+            default :
+                break;
         } 
         echo json_encode($result);
     }
     
+    /**
+     * Change inquiry status
+     * @param
+     * @return json
+     */
     public function changeStatus() {
         $id = $this->input->post('id');
         $status = $this->input->post('status');
@@ -69,6 +101,11 @@ class AdminInquiryController extends CI_Controller {
         echo json_encode($result);
     }   
     
+    /**
+     * reply inquiry 
+     * @param
+     * @return json 
+     */
     public function replyInquiry() {
         
         $validate = array(
