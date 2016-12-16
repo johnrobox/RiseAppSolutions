@@ -1,10 +1,9 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*
+ * Admin Faq controller
  */
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AdminFaqController extends CI_Controller {
     
@@ -18,7 +17,11 @@ class AdminFaqController extends CI_Controller {
         );
     }
     
-    
+    /***
+     * index view 
+     * @param 
+     * @return void
+     */
     public function index() {
         $data = array(
             'content_title' => 'FAQs',
@@ -37,6 +40,11 @@ class AdminFaqController extends CI_Controller {
         $this->load->view('admin/template/footer');
     }
     
+    /****
+     * add faq item
+     * @param 
+     * @return json
+     */
     public function addFaqItem() {
         $validate = array(
             array(
@@ -70,6 +78,11 @@ class AdminFaqController extends CI_Controller {
         
     }
     
+    /***
+     * select faq by id
+     * @param 
+     * @return json
+     */
     public function selectFaqById() {
         $id = $this->input->post('id');
         $state = $this->input->post('state');
@@ -89,12 +102,22 @@ class AdminFaqController extends CI_Controller {
         echo json_encode($result);
     }
     
+    /****
+     * Delete faq
+     * @param
+     * @return json
+     */
     public function deleteFaq() {
         $id = $this->input->post('id');
         $result = $this->Faq->deleteFaqById($id);
         echo json_encode($result);
     }
     
+    /****
+     * Chage Status
+     * @param
+     * @return json
+     */
     public function changeStatus() {
         $id = $this->input->post("id");
         $status = $this->input->post("status");
@@ -103,6 +126,11 @@ class AdminFaqController extends CI_Controller {
         echo json_encode($result);
     }
     
+    /***
+     * Update faq item
+     * @param
+     * @return json
+     */
     public function updateFaqItem() {
         $validate = array(
             array(

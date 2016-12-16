@@ -2,6 +2,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <?php
+                // close button
+                $close_button = array(
+                    'class' => 'close',
+                    'data-dismiss' => 'modal',
+                    'content' => '&times;'
+                );
+                echo form_button($close_button);
+                ?>
                 UPDATE FAQ'S
                 <img src="<?php echo base_url();?>images/admin/loading/loading6.svg" class="img-responsive loading-image center-block faqLoadingImage" style="height: 30px; width: 30px;"/>
                 <div class="alert alertMessageInModal"></div>
@@ -10,27 +19,29 @@
                 <?php echo form_open('', 'id="updateFaqForm" class="updateFaqForm" method="post"'); ?>
                     <input type="hidden" name="id" class="faq_id"/>
                     <div class="form-group">
-                        <label for="question">Questions</label>
+                        <?php echo form_label('Questions', 'question');?>
                         <div class="questionError text-error"></div>
                         <?php
                         // question field
                         $question_field = array(
                             'name' => 'question',
                             'class' => 'form-control question',
-                            'rows' => '3'
+                            'rows' => '3',
+                            'id' => 'question'
                         );
                         echo form_textarea($question_field);
                         ?>
                     </div>
                     <div class="form-group">
-                        <label for="answer">Answer</label>
+                        <?php echo form_label('Answer', 'answer');?>
                         <div class="answerError text-error"></div>
                         <?php 
                         // answer field
                         $answer_field = array(
                             'name' => 'answer',
                             'class' => 'form-control answer',
-                            'rows' => '5'
+                            'rows' => '5',
+                            'id' => 'answer'
                         );
                         echo form_textarea($answer_field);
                         ?>
@@ -55,13 +66,6 @@
                 );
                 echo form_button($update_button);
                 
-                // cancel button
-                $cancel_button = array(
-                    'class' => 'btn btn-default',
-                    'data-dismiss' => 'modal',
-                    'content' => 'Close'
-                );
-                echo form_button($cancel_button);
                 ?>
                 
             </div>
