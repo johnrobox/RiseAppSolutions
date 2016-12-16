@@ -4,6 +4,8 @@
  * Admin Inquiry Controller
  */
 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class AdminInquiryController extends CI_Controller {
     
     // construct
