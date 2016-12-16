@@ -5,12 +5,20 @@
             <div class="modal-header">
                 Add FAQ'S
                 <img src="<?php echo base_url();?>images/admin/loading/loading6.svg" class="img-responsive loading-image center-block faqLoadingImage" style="height: 30px; width: 30px;"/>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <?php
+                $close_button = array(
+                    'type' => 'button',
+                    'class' => 'close',
+                    'data-dismiss' => 'modal',
+                    'content' => '&times;'
+                );
+                echo form_button($close_button);
+                ?>
             </div>
             <div class="modal-body">
                 <?php echo form_open('', 'id="addFaqForm" class="addFaqForm" method="post"'); ?>
                     <div class="form-group">
-                        <label for="question">Questions</label>
+                        <?php echo form_label('Questions', 'question');?>
                         <div class="questionError text-error"></div>
                         <?php
                         // question field 
@@ -23,7 +31,7 @@
                         ?>
                     </div>
                     <div class="form-group">
-                        <label for="answer">Answer</label>
+                        <?php echo form_label('Answer', 'answer');?>
                         <div class="answerError text-error"></div>
                         <?php 
                         // answer field

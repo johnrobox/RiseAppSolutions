@@ -3,6 +3,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <?php
+                // close button
+                $close_button = array(
+                    'class' => 'close',
+                    'data-dismiss' => 'modal',
+                    'content' => '&times;'
+                );
+                echo form_button($close_button);
+                ?>
                 <img src="<?php echo base_url();?>images/admin/loading/loading6.svg" class="img-responsive loading-image center-block faqLoadingImage" style="height: 30px; width: 30px;"/>
             </div>
             <div class="modal-body">
@@ -10,25 +19,25 @@
                     <tr>
                         <td>Question</td>
                         <td>
-                            <textarea class="form-control showQuestion" disabled=""></textarea>
+                            <?php echo form_textarea(array('class' => 'form-control showQuestion', 'rows' => '4', 'disabled' => '')); ?>
                         </td>
                     </tr>
                     <tr>
                         <td>Answer</td>
                         <td>
-                            <textarea class="form-control showAnswer" disabled=""></textarea>
+                            <?php echo form_textarea(array('class' => 'form-control showAnswer', 'rows' => '4', 'disabled' => '')); ?>
                         </td>
                     </tr>
                     <tr>
                         <td>Created By</td>
                         <td>
-                            <input type="text" class="form-control showCreatedBy" disabled=""/>
+                            <?php echo form_input(array('type' => 'text', 'class' => 'form-control showCreatedBy', 'disabled' => ''));?>
                         </td>
                     </tr>
                     <tr>
                         <td>Date Created</td>
                         <td>
-                            <input type="text" class="form-control showDateCreated" disabled=""/>
+                            <?php echo form_input(array('type' => 'text', 'class' => 'form-control  showDateCreated', 'disabled' => ''));?>
                         </td>
                     </tr>
                 </table>
